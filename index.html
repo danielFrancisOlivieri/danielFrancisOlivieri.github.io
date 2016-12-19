@@ -1,21 +1,17 @@
-
 <!DOCTYPE html>
+<!-- Makes quotes -->
 <html>
-	<head>
-<title>ShakesBot</title>
+<title>CG</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-		
-		<link href="https://danielFrancisOlivieri.github.io/css/style.css" rel="stylesheet" type="text/css" >
-	
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <!-- <script src="characterGenerator.js"> </script> -->
-<!-- <link rel="stylesheet" href="https://www.w3schools.com/lib/w3.css"> -->
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
 
-	</head>
 <script>
 
 nouns = ["aardvark",
@@ -7476,7 +7472,7 @@ adjectives = ["abased",
 //array of DFW words
 //they are not just odd words, they must be specifically associated with him in some way
 
-// add a bit mroe of these and then throw them in 
+// add a bit mroe of these and then throw them in
 dfwNouns = [
 "seraglio",
 "shillelagh",
@@ -7554,11 +7550,11 @@ dfwAdjectives = [
 
 
 function noun (sing) {
-    
+
     this.name = sing;
     this.singular = sing;
     this.plural = sing + "s";
-    
+
     //can eventually replace these with "end with" to seem more professional
     var lastLetter = sing.charAt(sing.length-1);
     var penultimateLetter =  sing.charAt(sing.length-2);
@@ -7566,7 +7562,7 @@ function noun (sing) {
         this.plural = sing;
     }
     if (lastLetter === "x") {
-        
+
         this.plural = sing + "es";
     }
     if (sing.endsWith("fe")) {
@@ -7574,33 +7570,33 @@ function noun (sing) {
     }
     if (sing.endsWith("y")) {
         this.plural = sing.replace("y", "ies");
-        
+
     }
     this.conjugate = function (personAndNumber) {
         var theNoun = this.singular;
       if(personAndNumber>3) {
           theNoun = this.plural;
       }
-     
+
       return theNoun;
 };
 
 }
 
 for (i = 0; i < nouns.length; i++ ) {
-    
+
     nouns[i] = new noun(nouns[i]);
-    
+
 }
 for (i = 0; i < dfwNouns.length; i++ ) {
-    
+
     nouns[i] = new noun(dfwNouns[i]);
-    
+
 }
 
 //verbs
 function verb(fps, pp, g) {
-    
+
     //present tense forms
     this.infinitive = "to " + fps;
     this.firstPersonSingular = fps;
@@ -7609,18 +7605,18 @@ function verb(fps, pp, g) {
     this.firstPersonPlural = fps;
     this.secondPersonPlural = fps;
     this.thirdPersonPlural = fps;
-    
+
     //the name to refer to the word (I realize it isn't that useful)
     this.name = fps;
-    
+
     //yes, I'm awful and don't know the difference between gerunds and gerundives
     //not all pluperfects use the pp (it's "had written" not "had wrote")
-    
-    //these are other forms, don't know linguistic term for them 
+
+    //these are other forms, don't know linguistic term for them
     this.gerund = g;
     this.pastParticiple = pp;
    this.futureTense = "will " + fps;
-   
+
    //This is for super irregulars "go", "do"
    this.alternateConstructor = function (i, fps, sps, tps, fpp, spp, tpp) {
     this.infinitive = i;
@@ -7633,9 +7629,9 @@ function verb(fps, pp, g) {
    };
  //returns conjugated verb
  this.conjugate = function (tense, personAndNumber) {
-    
+
     var verb1 = this.firstPersonSingular;
- 
+
     if (tense === 0) {
         verb1 = this.infinitive;
     }
@@ -7660,63 +7656,63 @@ function verb(fps, pp, g) {
         verb1 = this.firstPersonSingular;
     }
     }
-    
+
 //future
     if(tense === 2) {
-        
+
         verb1 = this.futureTense;
     }
-    
+
 //imperfect
      if(tense === 3) {
-        
-       
+
+
           switch (personAndNumber) {
     case 1:
        verb1 = "was " + this.gerund;
-       
+
         break;
     case 2:
       verb1 = "were " + this.gerund;
-     
+
         break;
     case 3:
         verb1 = "was " + this.gerund;
         break;
     case 4:
         verb1 = "were " + this.gerund;
-       
+
         break;
     case 5:
         verb1 = "were " + this.gerund;
-     
+
         break;
     case 6:
          verb1 = "were " + this.gerund;
-   
+
     }
-    
+
      }
      //here
      //past tense
     if(tense === 4) {
         verb1 =  this.pastParticiple;
-     
+
     return verb1;
     }
-    
+
     //pluperfect
     if (tense === 5) {
         verb1 = "had " + this.pastParticiple;
-        
-        
+
+
     }
    return verb1;
-  
+
 };
-    
+
 }
-//verb list 
+//verb list
 verbs = [];
 verbs[0] = new verb("walk", "walked", "walking");
 verbs[1] = new verb("run", "ran", "running");
@@ -7757,7 +7753,7 @@ verbs[35] = new verb("out smart", "out smarted", "out smarting");
 verbs[36] = new verb("ridicule", "ridiculed", "ridiculing");
 for (i = 0; i < verbs.length; i++) {
     console.log(verbs[i].conjugate(3,3));
-    
+
 }
 /*
 for (m = 0; m <6; m++) {
@@ -7771,31 +7767,31 @@ for (i = 0; i <6; i++) {
 
 //names array
 var girlNames = [
-"Amabel", 
- "Ambrosia", 
-"Augustina", 
-"Bellamy", 
+"Amabel",
+ "Ambrosia",
+"Augustina",
+"Bellamy",
 "Bella",
- "Branwen",  
+ "Branwen",
 "Celestia",
- "Cicely", 
+ "Cicely",
 "Circe",
-"Clio", 
-"Cornelia", 
+"Clio",
+"Cornelia",
 "Dolly",
 "Devon",
-"Domino", 
+"Domino",
 "Electra",
 "Elspeth",
 "Ava",
-"Federica", 
-"Finola",  
-"Franny", 
-"Honora", 
-"Isolde", 
-"Jacinta", 
-"Jezebel", 
-"Lux", 
+"Federica",
+"Finola",
+"Franny",
+"Honora",
+"Isolde",
+"Jacinta",
+"Jezebel",
+"Lux",
 "Olympia",
 "Ellen",
 "Karen",
@@ -7806,22 +7802,22 @@ var girlNames = [
 "Fezeka",
 "Lulama",
 "Nobomi",
-"Paz", 
-"Sabra", 
-"Saffron", 
-"Saskia",   
-"Valentine", 
-"Verena", 
+"Paz",
+"Sabra",
+"Saffron",
+"Saskia",
+"Valentine",
+"Verena",
 "Vita",
 "Zintle"
 ];
 var boyNames = [
-"Ahmet", 
-"Amias", 
+"Ahmet",
+"Amias",
 "Balthazar",
-"Breccan",  
+"Breccan",
 "Clancy",
-"Cosmo", 
+"Cosmo",
 "Gareth",
 "Jago",
 "Jotham",
@@ -7829,33 +7825,33 @@ var boyNames = [
 "Tobias",
 "Jack",
 "Adam",
-"Brennan", 
+"Brennan",
 "Lorcan",
-"North", 
-"Oberon", 
-"Orson", 
-"Osborne", 
-"Oswald", 
+"North",
+"Oberon",
+"Orson",
+"Osborne",
+"Oswald",
 "Ozias",
-"Pike", 
+"Pike",
 "Prescott",
-"Redmond", 
-"Romulus", 
+"Redmond",
+"Romulus",
 "Rufus",
 "Sergei",
 "Stellan",
-"Thornton", 
+"Thornton",
 "Tiberius",
-"Vaughan", 
+"Vaughan",
 "Walden"];
 
 var names = [
-"Ahmet", 
-"Amias", 
+"Ahmet",
+"Amias",
 "Balthazar",
-"Breccan",  
+"Breccan",
 "Clancy",
-"Cosmo", 
+"Cosmo",
 "Gareth",
 "Jago",
 "Jotham",
@@ -7863,49 +7859,49 @@ var names = [
 "Tobias",
 "Jack",
 "Adam",
-"Brennan", 
+"Brennan",
 "Lorcan",
-"North", 
-"Oberon", 
-"Orson", 
-"Osborne", 
-"Oswald", 
+"North",
+"Oberon",
+"Orson",
+"Osborne",
+"Oswald",
 "Ozias",
-"Pike", 
+"Pike",
 "Prescott",
-"Redmond", 
-"Romulus", 
+"Redmond",
+"Romulus",
 "Rufus",
 "Sergei",
 "Stellan",
-"Thornton", 
+"Thornton",
 "Tiberius",
-"Vaughan", 
+"Vaughan",
 "Walden",
-"Amabel", 
- "Ambrosia", 
-"Augustina", 
-"Bellamy", 
+"Amabel",
+ "Ambrosia",
+"Augustina",
+"Bellamy",
 "Bella",
- "Branwen",  
+ "Branwen",
 "Celestia",
- "Cicely", 
+ "Cicely",
 "Circe",
-"Clio", 
-"Cornelia", 
+"Clio",
+"Cornelia",
 "Dolly",
 "Devon",
-"Domino", 
+"Domino",
 "Electra",
 "Elspeth",
-"Federica", 
-"Finola",  
-"Franny", 
-"Honora", 
-"Isolde", 
-"Jacinta", 
-"Jezebel", 
-"Lux", 
+"Federica",
+"Finola",
+"Franny",
+"Honora",
+"Isolde",
+"Jacinta",
+"Jezebel",
+"Lux",
 "Olympia",
 "Ellen",
 "Karen",
@@ -7916,22 +7912,22 @@ var names = [
 "Fezeka",
 "Lulama",
 "Nobomi",
-"Paz", 
-"Sabra", 
-"Saffron", 
-"Saskia",   
-"Valentine", 
-"Verena", 
+"Paz",
+"Sabra",
+"Saffron",
+"Saskia",
+"Valentine",
+"Verena",
 "Vita",
 "Zintle"
 ];
 
 function noun (sing) {
-    
+
     this.name = sing;
     this.singular = sing;
     this.plural = sing + "s";
-    
+
     //can eventually replace these with "end with" to seem more professional
    // var lastLetter = sing.charAt(sing.length-1);
     var penultimateLetter =  sing.charAt(sing.length-2);
@@ -7939,7 +7935,7 @@ function noun (sing) {
         this.plural = sing;
     }
     if (sing.endsWith("x")) {
-        
+
         this.plural = sing + "es";
     }
     if (sing.endsWith("fe")) {
@@ -7949,7 +7945,7 @@ function noun (sing) {
         var theNoun = this.singular;
       if(personAndNumber>3) {
           theNoun = this.plural;
-         
+
       }
       return theNoun;
 };
@@ -7957,14 +7953,14 @@ function noun (sing) {
 }
 
 for (i = 0; i < nouns.length; i++ ) {
-    
+
     nouns[i] = new noun(nouns[i]);
-    
+
 }
 //this is just to show off
 for (m = 120; m < 190; m++) {
     console.log(nouns[m].plural);
-    
+
 }
 //title case
 function titleCase(str) {
@@ -7972,10 +7968,10 @@ function titleCase(str) {
    for (var i = 0; i < splitStr.length; i++) {
        // You do not need to check if i is larger than splitStr length, as your for does that for you
        // Assign it back to the array
-       splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);     
+       splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);
    }
    // Directly return the joined string
-   return splitStr.join(' '); 
+   return splitStr.join(' ');
 }
 
 //get interval
@@ -8001,12 +7997,12 @@ function randomIntFromInterval(min,max)
       var article = articleConjugator(tense, personAndNumber);
       return article;
   }
-  
+
   //gets random noun of random number
   function getNoun () {
       var subject1Numb = randomIntFromInterval(0, nouns.length);
     var DOobject = nouns[subject1Numb];
-      var rando = Math.floor((Math.random() * 10) + 1); 
+      var rando = Math.floor((Math.random() * 10) + 1);
   var directObject = DOobject.singular;
     if (rando >5) {
     directObject = DOobject.plural;
@@ -8049,7 +8045,7 @@ function randomCharacter() {
     this.opinion1 = "Feels " + getAdjective() + " towards other people.";
     this.opinion2 = getAdjective();
   //  this.hobby1 = "Sometimes likes " + getVerb(0, 5) + " when feeling " + getAdjective();
-	
+
 	this.basic = function () {
         var theName = "Name: \n";
         var personality = "Personality: \n";
@@ -8058,7 +8054,7 @@ function randomCharacter() {
         var stance = "Stance on other people: \n";
         var sexuality = "Sexuality: \n";
         var firstHobby = "Hobby: \n";
-        
+
         var full = theName + personality + look + aesthetic + stance + sexuality + firstHobby;
 		console.log(full);
         return full;
@@ -8070,7 +8066,7 @@ function randomCharacter() {
     this.opinion1 = "Feels " + getAdjective() + " towards other people.";
     this.opinion2 = getAdjective();
    // this.hobby1 = "Sometimes likes " + getVerb(0, 5) + " when feeling " + getAdjective();
-		
+
 	}
     //hobby: {frequency} likes {infinitive} when he/she feels {adjective}
 }
@@ -8093,144 +8089,18 @@ function MoD () {
 
 
 </script>
-<style>
-.onoffswitch {
-    position: relative; width: 90px;
-    -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
-	margin: auto;
-	text-align: left;
-	position: relative;
-margin-top: 15px;
-}
 
-.onoffswitch-checkbox {
-    display: none;
-}
-.onoffswitch-label {
-    display: block; overflow: hidden; cursor: pointer;
-    border: 2px solid #999999; border-radius: 20px;
-}
-.onoffswitch-inner {
-    display: block; width: 200%; margin-left: -100%;
-    transition: margin 0.3s ease-in 0s;
-}
-.onoffswitch-inner:before, .onoffswitch-inner:after {
-    display: block; float: left; width: 50%; height: 30px; padding: 0; line-height: 30px;
-    font-size: 14px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: bold;
-    box-sizing: border-box;
-}
-.onoffswitch-inner:before {
-    content: "|";
-    padding-left: 15px;
-    background-color: #34A7C1; color: #FFFFFF;
-}
-
-.onoffswitch-inner:after {
-    content: "O";
-    padding-right: 15px;
-    background-color: #EEEEEE; color: #999999;
-    text-align: right;
-}
-
-.onoffswitch-switch {
-    display: block; width: 32px; margin: 0.5px;
-    background: #FFFFFF;
-    position: absolute; top: 0; bottom: 0;
-    right: 56px;
-    border: 2px solid #999999; border-radius: 20px;
-    transition: all 0.3s ease-in 0s; 
-}
-.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
-    margin-left: 0;
-}
-.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
-    right: 0px; 
-}
-
-.switchLabel {
-padding: 30px;
-postion: relative;
-display: block;
-text-align: center;
-font-family: "Lato";
-}
-
-
-body,h1, h3,h4,h5,h6 {font-family: Courier New;
-align: center;
-}
-
-.fa-pencil-square-o,.fa-code {font-size:260px}
-#btndiv {
-display: block;
-border-color: black;
-margin-top: 15px;
-}
-button {
-position: relative;
-display: block;
- border-radius: 23%;
- text-align: center;
-
-clear: left;
-  margin: auto;
-    width: 8%;
-    border: 3px solid #73AD21;
-    padding: 10px;
-}
-p {
-display: inline-block;
-font-family: Courier New;
-font-size: 18px;
-}
-#synDiv {
-border: dashed;
-padding: 20px;
-border-color: black;
-text-align: left;
-display: block;
-  margin: auto;
-    width: 50%;
-align: center;
-}
-textarea {
-display: none; 
-}
-#radioButtons {
-display: block;
-}
-.words {
-text-decoration: none;
-display: inline-block;
-}
-.disappear{
-display: none;
-}
-#switch2 {
-margin-top: 15px;
-}
-.footnotes, .MoD{
-visibility: hidden;
-display: inline-block;
-}
-#endnotes {
-visibility: hidden;
-}
-
-.collapse {
-
-}
-
-</style>
 <body>
+
+
 
   <script>
   var adjective = getAdjective();
 	var person  = newChar();
 	var sex = "on";
-	
+
  $(document).ready(function(){
- 
+
  //current
  // GRRM
  $("#GRRMSwitch").click(function() {
@@ -8254,12 +8124,12 @@ visibility: hidden;
 	  $("#aesthetic").text("Fighting style: ");
 	  $("#phobia").text("Greatest enemy: ");
 	  $("#look").text("Skill at intrigue: ");
-	  //collapse stance isn't working 
+	  //collapse stance isn't working
 	$(".collapse").collapse('show');
 	 $("pp").text();
 	  $(".MoD").css("visibility", "visible");
-	
-	  
+
+
    };
  });
 //DFW
@@ -8298,12 +8168,12 @@ visibility: hidden;
 	   console.log(adj);
 	   adjective = getDFWAdjective();
 	   $("#FN3").text("3");
-	   
+
 	   $("#dfwAdj1").text(adj);
 	   $("#dfwAdj2").text(adj2);
 	   $("#dfwNoun1").text(noun1);
 	   // $("#synDiv").prop("Written in the style of a computer", "Written in the style of David Foster Wallace");
-	   //dfw words linking 
+	   //dfw words linking
 		$("#dfwAdj1").attr({
             "href" : "http://www.dictionary.com/browse/" +adj,
             "title" : "word"
@@ -8321,12 +8191,12 @@ visibility: hidden;
             "title" : "word"
         });
    };
-   
-   
+
+
  });
- 
+
  $("#sexSwitch").click(function() {
- 
+
 	if  ($(this).val() === "on") {
       $(this).val("off");
       console.log(this);
@@ -8342,9 +8212,9 @@ visibility: hidden;
 	   $("#firstLabel").text("Secular");
    };
  });
- 
+
   $("#phobiaSwitch").click(function() {
- 
+
 	if  ($(this).val() === "on") {
       $(this).val("off");
       console.log(this);
@@ -8360,8 +8230,8 @@ visibility: hidden;
 	   $("#secondLabel").text("Passion");
    };
  });
- 
-		
+
+
 		$("button").click(function(){
 		var name = getName();
 		var phobia = getNounObject().plural;
@@ -8382,31 +8252,31 @@ visibility: hidden;
             "href" : "http://www.dictionary.com/browse/" +name,
             "title" : "word"
         });
-		
+
 		 $("#word2").text(adj1);
 		 $("#word2").attr({
             "href" : "http://www.dictionary.com/browse/" +adj1,
             "title" : "word"
         });
-		
+
 		$("#word3").text(adj2);
 		 $("#word3").attr({
             "href" : "http://www.dictionary.com/browse/" +adj2,
             "title" : "word"
         });
-		
+
 		$("#word4").text(adj3);
 		 $("#word4").attr({
             "href" : "http://www.dictionary.com/browse/" +adj3,
             "title" : "word"
         });
-		
+
 		$("#word5").text(adj4);
 		 $("#word5").attr({
             "href" : "http://www.dictionary.com/browse/" +adj4,
             "title" : "word"
         });
-		
+
 		$("#word6").text(adj5);
 		 $("#word6").attr({
             "href" : "http://www.dictionary.com/browse/" +adj5,
@@ -8432,7 +8302,7 @@ visibility: hidden;
             "href" : "http://www.dictionary.com/browse/" +word9,
             "title" : "word"
         });
-		
+
 		console.log($("#synDiv").text());
 		var synopsis = $("#synDiv").text();
 		synopsis = synopsis.replace("  ", " ");
@@ -8447,22 +8317,179 @@ visibility: hidden;
 	   else if ($("#GRRMSwitch").val() === "on") {
 	  $('#synDiv').attr('Written in the style of a computer', 'Written in the style of George RR Martin');
 	  }
-	
+
     });
-		
+
 });
 
-	
     </script>
+    <style>
+    .onoffswitch {
+        position: relative; width: 90px;
+        -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
+    	margin: auto;
+    	text-align: left;
+    	position: relative;
+    margin-top: 15px;
+    }
 
+    .onoffswitch-checkbox {
+        display: none;
+    }
+    .onoffswitch-label {
+        display: block; overflow: hidden; cursor: pointer;
+        border: 2px solid #999999; border-radius: 20px;
+    }
+    .onoffswitch-inner {
+        display: block; width: 200%; margin-left: -100%;
+        transition: margin 0.3s ease-in 0s;
+    }
+    .onoffswitch-inner:before, .onoffswitch-inner:after {
+        display: block; float: left; width: 50%; height: 30px; padding: 0; line-height: 30px;
+        font-size: 14px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: bold;
+        box-sizing: border-box;
+    }
+    .onoffswitch-inner:before {
+        content: "|";
+        padding-left: 15px;
+        background-color: #34A7C1; color: #FFFFFF;
+    }
+
+    .onoffswitch-inner:after {
+        content: "O";
+        padding-right: 15px;
+        background-color: #EEEEEE; color: #999999;
+        text-align: right;
+    }
+
+    .onoffswitch-switch {
+        display: block; width: 32px; margin: 0.5px;
+        background: #FFFFFF;
+        position: absolute; top: 0; bottom: 0;
+        right: 56px;
+        border: 2px solid #999999; border-radius: 20px;
+        transition: all 0.3s ease-in 0s;
+    }
+    .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+        margin-left: 0;
+    }
+    .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
+        right: 0px;
+    }
+
+    .switchLabel {
+    padding: 30px;
+    postion: relative;
+    display: block;
+    text-align: center;
+    font-family: "Lato";
+    }
+    body
+    {
+      background-color: #f42819;
+      color: white;
+    }
+
+    h1, h3,h4,h5,h6 {
+      font-family: Courier New;
+
+
+    }
+
+    .fa-pencil-square-o,.fa-code {font-size:260px}
+    #btndiv {
+    display: block;
+    border-color: yellow;
+    margin-top: 15px;
+    }
+    button {
+    position: relative;
+    display: block;
+     border-radius: 23%;
+     text-align: center;
+background-color: #f42819;
+    clear: left;
+      margin: auto;
+        width: 8%;
+        border: 3px solid #337ab7;
+        padding: 10px;
+    }
+    p {
+    display: inline-block;
+    font-family: Courier New;
+    font-size: 18px;
+    }
+    #synDiv {
+    border: dashed;
+    padding: 20px;
+    border-color: black;
+    text-align: left;
+    display: block;
+      margin: auto;
+        width: 50%;
+    align: center;
+    display: block;
+      margin: auto;
+    }
+    textarea {
+    display: none;
+    }
+    #radioButtons {
+    display: block;
+    }
+
+    .disappear{
+    display: none;
+    }
+    #switch2 {
+    margin-top: 15px;
+    }
+    .footnotes, .MoD{
+    visibility: hidden;
+    display: inline-block;
+    color: white;
+    }
+    #endnotes {
+    visibility: hidden;
+    }
+.words
+{
+  text-decoration: none;
+  color: white;
+  display: inline-block;
+  font-family: Courier New;
+  font-size: 18px;
+  cursor: pointer;
+}
+#synDiv a, body a{
+    text-decoration: none;
+    font-family: Courier New;
+    font-size: 18px;
+}
+
+#title {
+  margin: auto;
+  width: 243px;
+display: block;
+  padding: 10px;
+  
+}
+h3
+{
+text-align: center;
+
+}
+    </style>
 <!-- Header -->
-<div class="w3-container w3-red w3-center w3-padding-128">
-  <h1 id = "#title" class="w3-margin w3-jumbo"> <span title = "Many thanks to W3 schools, Kyle Stetz, and the people who made the icons">Person Factory </span> </h1>
-  <h3 title="Randall Munroe called, he wants his mouseover text back." > It Builds Characters </h3>
+
+  <h1> <span id = "title"  class = "label label-primary" title = "Many thanks to W3 schools, Kyle Stetz, and the people who made the icons">Person Factory </span> </h1>
+
+  <h3  title="Randall Munroe called, he wants his mouseover text back." > It Builds Characters </h3>
+
 <div title = "Footnotes are at the bottom of the page" id="synDiv">
 <p>Name: </p> <p> <a class = "words" id = "word1"> Stellan </a> </p> <br>
 <p>Personality: </p> <p> <a class = "words" id = "word2">anguine</a></p><p><sup id="FN1"></sup> </p><br>
-<p id = "look" >Look: </p> <p> <a class = "words" id = "word3"> hissing </a> </p> <br>
+<p id = "look" >Look: </p> <p> <a target="_blank" class = "words" id = "word3"> hissing </a> </p> <br>
 <p id = "aesthetic">Aesthetic: </p> <p> <a class = "words" id = "word4"> coarsest </a> </p> <br>
 <p id = "stance1">Stance on other people: Acts </p> <p> <a class = "words" id = "word5"> undocked</a></p> <p id = "stance2"> towards other people</p><p><sup id="FN2"></sup></p><br>
 <p id = "sexuality">Sexuality: </p> <p> <a class = "words" id = "word6"> cheery </a> </p> <br>
@@ -8472,28 +8499,16 @@ visibility: hidden;
 <!-- <p>Hobby: Sometimes likes to write when feeling super</p><br> -->
 </div>
 </div>
-
-<textarea id ="charBox" rows = "9" cols = "70">
-Resume
-Knives pain you
-pills cause cramp
-acid stains you
-and rivers are damp
-gas smells awful
-nooses give
-guns aren't lawful
-you might as well live
-</textarea>
     <br>
 	<div id="btndiv">
-<button class="w3-btn w3-padding-16 w3-large w3-margin-top"  >More</button>
+<button   >More</button>
 <br>
 </div>
 
 <div id = "switches">
 <!-- gratuitous switch -->
 <div id= "switch1">
-<p style = "display: inline-block" class = "switchLabel" id = "firstLabel" title = "'Computers are like old testament God. Lots of rules and no mercy.' - Joseph Campbell" > Secular </p>
+<p class = "switchLabel" id = "firstLabel" title = "'Computers are like old testament God. Lots of rules and no mercy.' - Joseph Campbell" > Secular </p>
       <!--  <label id = "fistLabel" for="sexSwitch" >Mormonism</label> -->
 <div class="onoffswitch">
     <input value ="on" type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="sexSwitch" checked>
@@ -8510,13 +8525,14 @@ you might as well live
 <p class = "switchLabel" id = "secondLabel" title= "if you need an explanation for what this is, you really need to get out more"> Passion </p>
       <!--  <label id = "fistLabel" for="sexSwitch" >Mormonism</label> -->
 <div class="onoffswitch">
-    <input value ="on" type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="phobiaSwitch" checked>
+    <input value ="off" type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="phobiaSwitch" checked>
     <label class="onoffswitch-label" for="phobiaSwitch" for= "sexSwitch">
         <span class="onoffswitch-inner"></span>
         <span class="onoffswitch-switch"></span>
     </label>
 </div>
 </div>
+
 <div id= "switch3">
 <p class = "switchLabel" id = "thirdLabel" title="'Everybody is identical in their secret unspoken belief that way deep down they are different from everyone else.'" > David Foster Wallace </p>
       <!--  <label id = "fistLabel" for="sexSwitch" >Mormonism</label> -->
@@ -8542,31 +8558,13 @@ you might as well live
 </div>
 </div>
 <!-- Footer -->
-<footer class="w3-container w3-padding-64 w3-center w3-opacity">
-  <div class="w3-xlarge w3-padding-32">
-   <a href="#" class="w3-hover-text-indigo"><i class="fa fa-cubes"></i></a>
-   <a href="#" class="w3-hover-text-red"><i class="fa fa-database"></i></a>
-   <a href="#" class="w3-hover-text-light-blue"><i class="fa fa-plug"></i></a>
-   <a href="#" class="w3-hover-text-grey"><i class="fa fa-tasks"></i></a>
-   <a href="#" class="w3-hover-text-indigo"><i class="fa fa-tint"></i></a>
- </div>
+
  <h4 id = "endnotes" style = "display: block;" title="If you think that I'm pretentious for adding this, just be glad I didn't name it 'Endnotes and Errata'"> Endnotes </h4>
  <p class = "footnotes" id = "footnote1">1. And this really did define their personality. It would often cause like </p> <p> <a class="words" id="dfwAdj1"> <a></p> <p class = "footnotes"> nightmares. Some say that this is what caused their obsession with </p> <p><a class="words" id="dfwNoun1"></a></p><p class = "footnotes">.</p> <br>
   <p class = "footnotes" id = "footnote2">2. Other people would perfer to use the adjective </p> <p><a class="words" id="dfwAdj2"> </a></p> <p class = "footnotes">instead.</p> <br>
     <p class= "MoD" class = "footnotes" id = "footnote3">3. And they drank like mulled wine and honied lamb as they did it. </p> <br>
 </footer>
-<script>
-// Used to toggle the menu on small screens when clicking on the menu button
-function myFunction() {
-    var x = document.getElementById("navDemo");
-    if (x.className.indexOf("w3-show") == -1) {
-        x.className += " w3-show";
-    } else {
-        x.className = x.className.replace(" w3-show", "");
-    }
-}
-</script>
+
 
 </body>
 </html>
-
