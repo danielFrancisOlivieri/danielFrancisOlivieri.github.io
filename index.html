@@ -8389,8 +8389,12 @@ function MoD () {
       background-color: #f42819;
       color: white;
     }
-
-    h1, h3,h4,h5,h6 {
+h1
+{
+  margin-top: 2cm;
+  font-family: Courier;
+}
+    h3,h4,h5,h6 {
       font-family: Courier New;
 
 
@@ -8479,10 +8483,51 @@ h3
 text-align: center;
 
 }
+
+
+body {margin:0;}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+
+    top: 0;
+    width: 100%;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover:not(.active) {
+    background-color: #111;
+}
+
+.active {
+    background-color: #337ab7;
+}
     </style>
 <!-- Header -->
 
-  <h1> <a href = "http://kylestetz.github.io/Sentencer/" <span id = "title"  class = "label label-primary" title = "Many thanks to W3 schools, Kyle Stetz, and the people who made the icons">Person Factory </span> </h1>
+<ul>
+  <li><a class="active" href="danielFrancisOlivieri.github.io/-Cousin-of-Coyle">Home</a></li>
+  <li><a href="#news">News</a></li>
+  <li><a href="#contact">Contact</a></li>
+  <li><a href="#about">About</a></li>
+</ul>
+
+  <h1>  <span id = "title"  class = "label label-primary" title = "Many thanks to W3 schools, Kyle Stetz, and the people who made the icons">Person Factory </span> </h1>
 
   <h3  title="Randall Munroe called, he wants his mouseover text back." > It Builds Characters </h3>
 
